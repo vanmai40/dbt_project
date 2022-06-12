@@ -1,5 +1,19 @@
-
 version: 2
+
+sources: 
+
+ - name: gbq_news
+   database: bigquery-public-data
+   schema: hacker_news
+   tables:
+    - name: full
+
+ - name: gbq_github
+   database: githubarchive
+   schema: day
+   tables:
+    - name: "20131109"
+    
 
 models:
   - name: my_first_dbt_model
@@ -16,6 +30,14 @@ models:
     columns:
       - name: id
         description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+
+
+  - name: github_agg
+    columns:
+      - name: github_repo
         tests:
           - unique
           - not_null
